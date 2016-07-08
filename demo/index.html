@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>hab-editable-label demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../hab-editable-label.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic hab-editable-label Demo</h3>
+      <demo-snippet>
+        <template>
+          <hab-editable-label id="label-1" value="test value"></hab-editable-label>
+        </template>
+      </demo-snippet>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+      window.addEventListener('WebComponentsReady', function () {
+        var label1 = document.querySelector('#label-1');
+        
+        label1.addEventListener('click', function () {
+          label1.edit(function (finalValue) {
+            
+            var userConfirmed = confirm('confirm editing label value to `' + finalValue + '`?');
+            
+            if (userConfirmed) {
+              // confirms edition
+              return Promise.resolve();
+            } else {
+              // cancels edition
+              return Promise.reject();
+            }
+            
+          })
+        });
+        
+        label1.addEventListener('cancel', function (e) {
+          alert('user cancelled edition');
+        });
+        
+        label1.addEventListener('edition-done', function (e) {
+          var data = e.detail;
+          alert('changed from ' + data.oldValue + ' to ' + data.newValue);
+        });
+      })
+    </script>
+
+  </body>
+</html>
