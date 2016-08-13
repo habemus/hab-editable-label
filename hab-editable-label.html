@@ -5,8 +5,15 @@
   <template strip-whitespace>
 
     <style>
+      #label {
+        display: inline-block;
+        height: 1em;
+      }
+
       #form {
         display: inline-block;
+
+        width: 100%;
       }
 
       #input {
@@ -14,6 +21,8 @@
         border-left: none;
         border-right: none;
         border-bottom: none;
+
+        width: 100%;
 
         padding: 0 0;
 
@@ -51,6 +60,10 @@
           value: false
         },
 
+        /**
+         * The value to be edited
+         * @type {String}
+         */
         value: {
           type: String,
           notify: true,
@@ -179,7 +192,6 @@
        * @param  {DOM Event} e
        */
       _handleDocumentClick: function (e) {
-
         // https://developer.mozilla.org/en-US/docs/Web/API/Node/contains
         var target = e.target;
 
