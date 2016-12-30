@@ -1,5 +1,6 @@
 {
   "name": "hab-editable-label",
+  "version": "1.0.0",
   "main": "hab-editable-label.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0"

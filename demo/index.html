@@ -20,17 +20,39 @@
       <h3>Basic hab-editable-label Demo</h3>
       <demo-snippet>
         <template>
-          <hab-editable-label id="label-1" value="test value"></hab-editable-label>
+          <hab-editable-label
+            id="label-1"
+            value="test value.html">
+          </hab-editable-label>
         </template>
       </demo-snippet>
     </div>
     
     <script type="text/javascript" charset="utf-8">
+
+      const FILENAME_RE = /(.+?)(\.[^.]*$|$)/;
+
       window.addEventListener('WebComponentsReady', function () {
         var label1 = document.querySelector('#label-1');
         
         label1.addEventListener('click', function () {
-          label1.edit(function (finalValue) {
+
+          if (label1.get('isEditing')) {
+            console.log('already editing');
+            return;
+          }
+
+          label1.edit({
+            selectionRange: function (value) {
+
+              var fileNameMatch = value.match(FILENAME_RE);
+
+              var start = fileNameMatch.index;
+              var end   = fileNameMatch.index + fileNameMatch[1].length;
+
+              return [start, end];
+            },
+          }, function (finalValue) {
             
             var userConfirmed = confirm('confirm editing label value to `' + finalValue + '`?');
             
