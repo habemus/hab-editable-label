@@ -43,7 +43,7 @@
       hidden$="{{ !isEditing }}"
       on-submit="_handleSubmit"
       on-keyup="_handleKeyup">
-      <input id="input" type="text" value="{{ value::input }}">
+      <input id="input" type="text" value="{{ value::input }}" autocomplete="[[ autocomplete ]]">
     </form>
   </template>
 </dom-module>
@@ -68,6 +68,16 @@
           type: String,
           notify: true,
         },
+
+        /**
+         * Value for the autocomplete attribute of the input.
+         * Defaults to 'off'
+         * @type {String}
+         */
+        autocomplete: {
+          type: String,
+          value: 'off'
+        }
       },
 
       ready: function () {
